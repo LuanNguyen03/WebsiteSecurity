@@ -1,5 +1,6 @@
 package com.example.webbanhang_7632.service;
 
+import com.example.webbanhang_7632.crypted.AESExample;
 import com.example.webbanhang_7632.entity.Order;
 import com.example.webbanhang_7632.entity.OrderDetail;
 import com.example.webbanhang_7632.entity.Product;
@@ -26,12 +27,12 @@ public class OrderService {
     @Autowired
     private CartService cartService; // Assuming you have a CartService
     @Transactional
-    public Order createOrder(String customerName,String customerPhone,String customerAddress,String customerNote, List<CartItem> cartItems) {
+    public Order createOrder(String customerName,String customerPhone,String customerAddress,String customerNote, List<CartItem> cartItems) throws Exception {
         Order order = new Order();
-        order.setCustomerName(customerName);
-        order.setCustomerPhone(customerPhone);
-        order.setCustomerAddress(customerAddress);
-        order.setCustomerNote(customerNote);
+        order.setCustomerName(AESExample.encrypt(customerName));
+        order.setCustomerPhone(AESExample.encrypt(customerPhone));
+        order.setCustomerAddress(AESExample.encrypt(customerAddress));
+        order.setCustomerNote(AESExample.encrypt(customerNote));
         order = orderRepository.save(order);
         for (CartItem item : cartItems) {
             Product product=item.getProduct();
