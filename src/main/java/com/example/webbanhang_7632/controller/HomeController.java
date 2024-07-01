@@ -11,4 +11,8 @@ public class HomeController {
     public String show(Model model) {
         return "index";
     }
+    @GetMapping("/403")
+    public String AccesDenied(Model model) {
+        return "403";
+    }
 }

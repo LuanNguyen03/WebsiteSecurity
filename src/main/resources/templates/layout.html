@@ -35,6 +35,11 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item d-flex align-items-center"
                     sec:authorize="isAuthenticated()">
+                    <a th:href="@{/order/list}" class="nav-link text-white">
+                        Order List</a>
+                </li>
+                <li class="nav-item d-flex align-items-center"
+                    sec:authorize="isAuthenticated()">
                     <span class="navbar-text text-white">
                     Xin chào, <span sec:authentication="name" style="marginright: 20px;"></span>
                     </span>

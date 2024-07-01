@@ -48,4 +48,8 @@ public class OrderService {
         cartService.clearCart();
         return order;
     }
+    @Transactional
+    public List<Order> getAllOrders(){
+        return orderRepository.findAll();
+    }
 }

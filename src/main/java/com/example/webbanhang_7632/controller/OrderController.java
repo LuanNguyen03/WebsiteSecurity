@@ -1,4 +1,6 @@
 package com.example.webbanhang_7632.controller;
+import com.example.webbanhang_7632.crypted.AESExample;
+import com.example.webbanhang_7632.entity.Order;
 import com.example.webbanhang_7632.model.CartItem;
 import com.example.webbanhang_7632.service.CartService;
 import com.example.webbanhang_7632.service.OrderService;
@@ -33,5 +35,17 @@ public class OrderController {
     public String orderConfirmation(Model model) {
         model.addAttribute("message", "Your order has been successfully placed.");
         return "cart/order-confirmation";
+    }
+    @GetMapping("/list")
+    public String orderList(Model model) throws Exception {
+        List<Order> orderList = orderService.getAllOrders();
+        for (Order order : orderList) {
+            order.setCustomerName(AESExample.decrypt(order.getCustomerName()));
+            order.setCustomerAddress(AESExample.decrypt(order.getCustomerAddress()));
+            order.setCustomerNote(AESExample.decrypt(order.getCustomerNote()));
+            order.setCustomerPhone(AESExample.decrypt(order.getCustomerPhone()));
+        }
+        model.addAttribute("orders", orderList);
+        return "orders/order-list";
     }
 }
